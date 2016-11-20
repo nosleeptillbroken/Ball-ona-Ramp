@@ -10,7 +10,11 @@ public class PlayerController : MonoBehaviour {
     bool onGround = true;
 
     [SerializeField]
-    private float jumpForce = 5f;
+    private float jumpForce = 3f;
+    [SerializeField]
+    private float dashSpeed = 1.5f;
+    [SerializeField]
+    private float dashTime = 0.5f;
 
     void Start()
     {
@@ -19,7 +23,6 @@ public class PlayerController : MonoBehaviour {
 
         actions.Add("jump", jump);
         actions.Add("dash", dash);
-
     }
 
      void Update()
@@ -46,7 +49,14 @@ public class PlayerController : MonoBehaviour {
     void dash()
     {
         Debug.Log("Dashing!");
+        StartCoroutine(dashRoutine());
+    }
 
+    IEnumerator dashRoutine()
+    {
+        TS.MovementSpeed += dashSpeed;
+        yield return new WaitForSeconds(dashTime);
+        TS.MovementSpeed -= dashSpeed;
     }
 
     void OnTriggerEnter()
