@@ -4,12 +4,19 @@ using System.Collections.Generic;
 
 public class PlayerController : MonoBehaviour {
 
-    TileSpawner ts;
+    TileSpawner TS;
+    Rigidbody rb;
     Dictionary<string, System.Action> actions = new Dictionary<string, System.Action>();
+    bool onGround = true;
+
+    [SerializeField]
+    private float jumpForce = 5f;
 
     void Start()
     {
-        ts = FindObjectOfType<TileSpawner>();
+        rb = gameObject.GetComponent<Rigidbody>();
+        TS = FindObjectOfType<TileSpawner>();
+
         actions.Add("jump", jump);
         actions.Add("dash", dash);
 
@@ -18,7 +25,7 @@ public class PlayerController : MonoBehaviour {
      void Update()
     {
         // Get the info of the current tile
-        TileInfo currentInfo = ts.ActiveTiles.First.Value.GetComponent<TileInfo>();
+        TileInfo currentInfo = TS.ActiveTiles.First.Value.GetComponent<TileInfo>();
 
         // If the player hit space, do the thing
         if (Input.GetKeyDown(KeyCode.Space))
@@ -30,12 +37,25 @@ public class PlayerController : MonoBehaviour {
     void jump()
     {
         Debug.Log("Jumping!");
-
+        if (onGround)
+        {
+            rb.AddForce(new Vector3(0, jumpForce, 0), ForceMode.Impulse);
+        }
     }
 
     void dash()
     {
         Debug.Log("Dashing!");
 
+    }
+
+    void OnTriggerEnter()
+    {
+        onGround = true;
+    }
+
+    void OnTriggerExit()
+    {
+        onGround = false;
     }
 }
