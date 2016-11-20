@@ -1,0 +1,7 @@
+diff a/BallOnARamp/Library/LastSceneManagerSetup.txt b/BallOnARamp/Library/LastSceneManagerSetup.txt	(rejected hunks)
+@@ -1,4 +1,4 @@
+ sceneSetups:
+-- path: Assets/_Scenes/MainGame.unity
++- path: Assets/_Scenes/MainDan.unity
+   isLoaded: 1
+   isActive: 1
