@@ -234,10 +234,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 1000011625385106, guid: bf01dc53375f2524ba0d3548329a7cb9, type: 2}
-      propertyPath: m_Name
-      value: Player
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bf01dc53375f2524ba0d3548329a7cb9, type: 2}
   m_IsPrefabParent: 0
@@ -292,6 +288,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1239806936}
   - 65: {fileID: 1239806935}
+  - 114: {fileID: 1239806937}
   m_Layer: 0
   m_Name: BoundingArea
   m_TagString: Untagged
@@ -324,6 +321,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 5
+--- !u!114 &1239806937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1239806934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0f0228b6aa4ea64b93456226db70ceb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1809025801
 Prefab:
   m_ObjectHideFlags: 0
