@@ -16,7 +16,7 @@ public class TileSpawner : MonoBehaviour {
     /// <summary>
     /// Queue of the currenly moving tiles.
     /// </summary>
-    LinkedList<GameObject> ActiveTiles;
+    public LinkedList<GameObject> ActiveTiles;
 
     /// <summary>
     /// Queue of the old, passed tiles that are still in existence.
@@ -196,7 +196,7 @@ public class TileSpawner : MonoBehaviour {
     public void MoveTile(GameObject tile, Vector3 direction)
     {
         // next, we get the tile's rigidbody component so we can move it properly
-        Rigidbody body = tile.GetComponent<Rigidbody>();
+        //Rigidbody body = tile.GetComponent<Rigidbody>();
 
         // finally, we translate the tile in the direction by our speed * deltaTime
         tile.transform.position += (direction * MovementSpeed * Time.deltaTime);
