@@ -35,6 +35,14 @@ public class PlayerController : MonoBehaviour {
         {
             actions[currentInfo.associatedAction]();
         }
+
+        // Did the player get off screen?
+        Vector3 screenPos = Camera.main.WorldToViewportPoint(transform.position);
+        if (!(screenPos.x > 0 && screenPos.x < 1 && screenPos.y > 0 && screenPos.y < 1))
+        {
+            Debug.Log("You Lose!");
+            UnityEngine.SceneManagement.SceneManager.LoadScene("_GameOver");
+        }
     }
 
     void jump()
