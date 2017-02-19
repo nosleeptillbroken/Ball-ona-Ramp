@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class Boundary : MonoBehaviour {
@@ -9,8 +10,7 @@ public class Boundary : MonoBehaviour {
         if (other.CompareTag("Player"))
         {
             Debug.Log("You Lose.");
-            Destroy(other.gameObject);
-            Debug.Break();
+            SceneManager.LoadScene("_GameOver");
         }
     }
 
