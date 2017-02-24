@@ -4,6 +4,36 @@ using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.UI;
 
+public static class Extensions
+{
+
+    static float lerp(float t, float a, float b)
+    {
+        return (1 - t) * a - t * b;
+    }
+
+    public static void SetTransparency(this UnityEngine.UI.Image p_image,float rate)
+    {
+        if (p_image != null)
+        {
+            UnityEngine.Color __alpha = p_image.color;
+            __alpha.a = lerp(rate, 1, 0); 
+            p_image.color = __alpha;
+        }
+    }
+
+    public static void SetTextTransparency(this UnityEngine.UI.Text p_text, float rate)
+    {
+        if (p_text != null)
+        {
+            UnityEngine.Color __alpha = p_text.color;
+            __alpha.a = lerp(rate, 1, 0);
+            p_text.color = __alpha;
+        }
+    }
+
+}
+
 public class MenuController : MonoBehaviour
 {
     [SerializeField] private List<GameObject> MenuObjects;
@@ -29,7 +59,7 @@ public class MenuController : MonoBehaviour
         rightPositions = new Vector2[startButtons.Count];
         for (int i = 0; i < startButtons.Count; i++)
         {
-            startButtons[i].GetComponent<Button>().interactable = false;
+            //startButtons[i].GetComponent<Button>().interactable = false;
             startPositions[i] = new Vector2(startButtons[i].transform.position.x, startButtons[i].transform.position.y);
             leftPositions[i] = new Vector2(startButtons[i].transform.position.x - startOffset, startButtons[i].transform.position.y);
             rightPositions[i] = new Vector2(startButtons[i].transform.position.x + endOffset, startButtons[i].transform.position.y);
@@ -46,12 +76,11 @@ public class MenuController : MonoBehaviour
             for (int i = 0; i < startButtons.Count; i++)
             {
                 float localTime = Mathf.Clamp01(time - factor * i);
-
                 
                 startButtons[i].transform.position = Vector2.LerpUnclamped(localTime < 0.1f ? startPositions[i] : leftPositions[i],
                     localTime < 0.1f ? leftPositions[i] : rightPositions[i], localTime * 2); //moving the object to the left, and then to the right
-                startButtons[i].GetComponent<Image>().color = Color.Lerp(startButtons[i].GetComponent<Image>().color, new Color(0f,0f,0f,0f), localTime); //button color
-                startButtons[i].GetComponentInChildren<Text>().color = Color.Lerp(startButtons[i].GetComponentInChildren<Text>().color, new Color(0f, 0f, 0f, 0f), localTime); //button color
+                startButtons[i].GetComponent<Image>().SetTransparency(time); //button color
+                startButtons[i].GetComponentInChildren<Text>().SetTextTransparency(time); //button text color
 
                 if (Vector2.Distance(startButtons[startButtons.Count - 1].transform.position, rightPositions[i]) == 400) //hard coded, but this is the stop position
                 {
