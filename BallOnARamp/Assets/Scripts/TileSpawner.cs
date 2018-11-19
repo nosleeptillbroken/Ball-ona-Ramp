@@ -198,8 +198,11 @@ public class TileSpawner : MonoBehaviour {
         // next, we get the tile's rigidbody component so we can move it properly
         //Rigidbody body = tile.GetComponent<Rigidbody>();
 
-        // finally, we translate the tile in the direction by our speed * deltaTime
-        tile.transform.position += (direction * MovementSpeed * Time.deltaTime);
+        if(!float.IsNaN(MovementSpeed) && MovementSpeed != 0f)
+        {
+            // finally, we translate the tile in the direction by our speed * deltaTime
+            tile.transform.Translate(direction * MovementSpeed * Time.deltaTime);
+        }
     }
 
     /// <summary>
@@ -245,11 +248,11 @@ public class TileSpawner : MonoBehaviour {
                 // otherwise, the default spawn location is shifted by the displacement vector from attach_prev on the new tile to attach_next on the previous tile
                 if (previousTile != null)
                 {
-                    spawnLocation = previousTile.transform.FindChild("attach_next").position - tilePrefab.transform.FindChild("attach_prev").position;
+                    spawnLocation = previousTile.transform.Find("attach_next").position - tilePrefab.transform.Find("attach_prev").position;
                 }
                 else
                 {
-                    spawnLocation = tilePrefab.transform.FindChild("attach_next").position;
+                    spawnLocation = tilePrefab.transform.Find("attach_next").position;
                 }
                 // spawn the tile
                 GameObject tile = Instantiate(tilePrefab, spawnLocation, Quaternion.identity) as GameObject;
